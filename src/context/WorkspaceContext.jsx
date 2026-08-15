@@ -1,9 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useReducer } from 'react'
+import { createContext, useCallback, useContext, useEffect, useReducer, useState } from 'react'
 import { getAllProjects } from '../db/projectsStore'
 import { getAllNotes } from '../db/notesStore'
 import { getAllTasks } from '../db/tasksStore'
 import { getAllSnippets } from '../db/snippetsStore'
 import { getAllActivity } from '../db/activityStore'
+import { seedDemoDataIfEmpty } from '../services/seedData'
 
 const WorkspaceContext = createContext(null)
 
@@ -91,21 +92,31 @@ async function loadEntity(dispatch, entity) {
   }
 }
 
-function useEntityLoader(dispatch, entity) {
+function useEntityLoader(dispatch, entity, ready) {
   useEffect(() => {
+    if (!ready) return
     loadEntity(dispatch, entity)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch])
+  }, [dispatch, ready])
 }
 
 export function WorkspaceProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const [seedReady, setSeedReady] = useState(false)
 
-  useEntityLoader(dispatch, 'projects')
-  useEntityLoader(dispatch, 'notes')
-  useEntityLoader(dispatch, 'tasks')
-  useEntityLoader(dispatch, 'snippets')
-  useEntityLoader(dispatch, 'activity')
+  // A first-time visitor's IndexedDB is empty — seed it with sample content
+  // before the entity loaders run, so the initial load already has data.
+  useEffect(() => {
+    seedDemoDataIfEmpty()
+      .catch((error) => console.error('Failed to seed demo data:', error))
+      .finally(() => setSeedReady(true))
+  }, [])
+
+  useEntityLoader(dispatch, 'projects', seedReady)
+  useEntityLoader(dispatch, 'notes', seedReady)
+  useEntityLoader(dispatch, 'tasks', seedReady)
+  useEntityLoader(dispatch, 'snippets', seedReady)
+  useEntityLoader(dispatch, 'activity', seedReady)
 
   /** Re-reads a store from IndexedDB into shared state — used after bulk writes (e.g. import) that bypass the entity hooks. */
   const refreshEntity = useCallback((entity) => loadEntity(dispatch, entity), [dispatch])
