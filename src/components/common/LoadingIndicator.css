@@ -1,0 +1,36 @@
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  justify-content: center;
+}
+
+.loading-indicator--inline {
+  padding: var(--space-2);
+  justify-content: flex-start;
+}
+
+.loading-indicator__spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--accent);
+  animation: loading-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-indicator__spinner {
+    animation: none;
+  }
+}

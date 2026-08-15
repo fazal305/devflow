@@ -1,0 +1,17 @@
+.autosave-status {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.autosave-status--saving {
+  color: var(--text-secondary);
+}
+
+.autosave-status--saved {
+  color: var(--success);
+}
+
+.autosave-status--error {
+  color: var(--danger);
+}

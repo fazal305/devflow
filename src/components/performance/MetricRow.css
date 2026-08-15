@@ -1,0 +1,29 @@
+.metric-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-sm);
+}
+
+.metric-row:last-child {
+  border-bottom: none;
+}
+
+.metric-row__label {
+  color: var(--text-secondary);
+}
+
+.metric-row__value {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.metric-row__value--unavailable {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--text-tertiary);
+  font-style: italic;
+}

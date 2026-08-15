@@ -1,0 +1,126 @@
+.app-header {
+  height: var(--header-height);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 0 var(--space-4);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  z-index: var(--z-header);
+}
+
+.app-header__menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+}
+
+.app-header__menu-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.app-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+  font-size: var(--fs-md);
+  flex-shrink: 0;
+}
+
+.app-header__logo {
+  display: flex;
+  color: var(--accent);
+}
+
+.app-header__search {
+  flex: 1;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-tertiary);
+  font-size: var(--fs-sm);
+  transition: border-color var(--transition-fast);
+}
+
+.app-header__search:hover {
+  border-color: var(--border-strong);
+}
+
+.app-header__search span {
+  flex: 1;
+  text-align: left;
+}
+
+.app-header__search kbd {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+}
+
+.app-header__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.network-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--fs-xs);
+  color: var(--success);
+}
+
+.network-badge--offline {
+  color: var(--warning);
+}
+
+.app-header__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+}
+
+.app-header__icon-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+@media (max-width: 767px) {
+  .app-header__menu-btn {
+    display: flex;
+  }
+
+  .app-header__search span {
+    display: none;
+  }
+
+  .app-header__search kbd {
+    display: none;
+  }
+
+  .network-badge__label {
+    display: none;
+  }
+}

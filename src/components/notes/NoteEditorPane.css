@@ -1,0 +1,133 @@
+.note-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  gap: var(--space-3);
+}
+
+.note-editor__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.note-editor__title {
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+.note-editor__title:focus {
+  outline: none;
+}
+
+.note-editor__title::placeholder {
+  color: var(--text-tertiary);
+}
+
+.note-editor__meta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.note-editor__meta-row select,
+.note-editor__tags {
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+}
+
+.note-editor__tags {
+  flex: 1;
+  min-width: 140px;
+}
+
+.note-editor__meta-row .autosave-status {
+  margin-left: auto;
+}
+
+.note-editor__toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.note-editor__view-toggle {
+  display: none;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2px;
+}
+
+.note-editor__view-toggle button {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.note-editor__view-toggle button.active {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.note-editor__actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.note-editor__actions button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+}
+
+.note-editor__actions button:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.note-editor__panes {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: var(--space-3);
+}
+
+.note-editor__pane {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .note-editor__view-toggle {
+    display: flex;
+  }
+
+  .note-editor__panes[data-view='write'] .note-editor__pane--preview {
+    display: none;
+  }
+
+  .note-editor__panes[data-view='preview'] .note-editor__pane--write {
+    display: none;
+  }
+}

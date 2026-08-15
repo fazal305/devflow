@@ -1,0 +1,109 @@
+.command-palette {
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.command-palette__input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.command-palette__input-row input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: var(--fs-md);
+}
+
+.command-palette__input-row input:focus {
+  outline: none;
+}
+
+.command-palette__input-row kbd {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+}
+
+.command-palette__results {
+  overflow-y: auto;
+  padding: var(--space-2);
+}
+
+.command-palette__message {
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: var(--fs-sm);
+}
+
+.command-palette__group {
+  margin-bottom: var(--space-2);
+}
+
+.command-palette__group-label {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+}
+
+.command-palette__result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  text-align: left;
+  color: var(--text-secondary);
+}
+
+.command-palette__result svg {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.command-palette__result--active {
+  background: var(--accent-muted);
+  color: var(--text-primary);
+}
+
+.command-palette__result--active svg {
+  color: var(--accent);
+}
+
+.command-palette__result-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.command-palette__result-title {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.command-palette__result-subtitle {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

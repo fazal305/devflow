@@ -1,0 +1,66 @@
+.settings-section {
+  margin-bottom: var(--space-6);
+}
+
+.settings-section__title {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+}
+
+.settings-install__button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.settings-install__button:hover {
+  background: var(--accent-hover);
+}
+
+.settings-install__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--success);
+}
+
+.settings-install__status--muted {
+  color: var(--text-tertiary);
+}
+
+.theme-picker {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.theme-picker__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+  background: var(--surface);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.theme-picker__option:hover {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.theme-picker__option--active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-muted);
+}

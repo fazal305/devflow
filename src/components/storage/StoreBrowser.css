@@ -1,0 +1,123 @@
+.store-browser {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.store-browser__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+}
+
+.store-browser__header:hover {
+  background: var(--surface-hover);
+}
+
+.store-browser__chevron {
+  color: var(--text-tertiary);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.store-browser__chevron--open {
+  transform: rotate(180deg);
+}
+
+.store-browser__name {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  text-transform: capitalize;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.store-browser__stat {
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.store-browser__stat--updated {
+  width: auto;
+  margin-left: auto;
+  font-family: var(--font-sans);
+  color: var(--text-tertiary);
+}
+
+.store-browser__records {
+  border-top: 1px solid var(--border);
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.store-browser__empty {
+  padding: var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--text-tertiary);
+}
+
+.store-browser__record {
+  border-bottom: 1px solid var(--border);
+}
+
+.store-browser__record:last-child {
+  border-bottom: none;
+}
+
+.store-browser__record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  text-align: left;
+}
+
+.store-browser__record-header:hover {
+  background: var(--surface-hover);
+}
+
+.store-browser__record-label {
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.store-browser__record-id {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.store-browser__json {
+  margin: 0;
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  background: var(--background);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  overflow-x: auto;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+  .store-browser__stat {
+    display: none;
+  }
+  .store-browser__stat--updated {
+    display: block;
+  }
+}

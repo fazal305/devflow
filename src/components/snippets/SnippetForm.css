@@ -1,0 +1,99 @@
+.snippet-form-modal {
+  width: min(680px, calc(100vw - var(--space-6)));
+  max-height: 85vh;
+}
+
+.snippet-form {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+}
+
+.snippet-form__title {
+  font-size: var(--fs-lg);
+}
+
+.snippet-form__row {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.snippet-form__row .snippet-form__field {
+  flex: 1;
+}
+
+.snippet-form__field--narrow {
+  flex: 0 0 160px;
+}
+
+.snippet-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.snippet-form__field input,
+.snippet-form__field select {
+  padding: var(--space-2) var(--space-3);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--fs-md);
+}
+
+.snippet-form__code {
+  padding: var(--space-3);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.snippet-form__field input:focus,
+.snippet-form__field select:focus,
+.snippet-form__code:focus {
+  border-color: var(--accent);
+}
+
+.snippet-form__error {
+  color: var(--danger);
+  font-size: var(--fs-xs);
+}
+
+.snippet-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.snippet-form__cancel,
+.snippet-form__submit {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.snippet-form__cancel {
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.snippet-form__submit {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.snippet-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

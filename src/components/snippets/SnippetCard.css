@@ -1,0 +1,131 @@
+.snippet-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast);
+}
+
+.snippet-card:hover {
+  border-color: var(--border-strong);
+}
+
+.snippet-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.snippet-card__title {
+  font-weight: 600;
+  font-size: var(--fs-md);
+  color: var(--text-primary);
+}
+
+.snippet-card__description {
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.snippet-card__code {
+  margin: 0;
+  padding: var(--space-3);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.snippet-card__code code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-primary);
+  white-space: pre;
+}
+
+.snippet-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.snippet-card__tag {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  background: var(--surface-hover);
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+
+.snippet-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.snippet-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  min-width: 0;
+}
+
+.snippet-card__meta a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.snippet-card__meta a:hover {
+  color: var(--accent);
+}
+
+.snippet-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.snippet-card__copy {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.snippet-card__copy:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.snippet-card__copy--ok {
+  color: var(--success);
+}
+
+.snippet-card__actions button:not(.snippet-card__copy) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
+}
+
+.snippet-card__actions button:not(.snippet-card__copy):hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}

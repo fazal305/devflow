@@ -1,0 +1,71 @@
+.project-form {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+}
+
+.project-form__title {
+  font-size: var(--fs-lg);
+}
+
+.project-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.project-form__field input,
+.project-form__field textarea,
+.project-form__field select {
+  padding: var(--space-2) var(--space-3);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--fs-md);
+  resize: vertical;
+}
+
+.project-form__field input:focus,
+.project-form__field textarea:focus,
+.project-form__field select:focus {
+  border-color: var(--accent);
+}
+
+.project-form__error {
+  color: var(--danger);
+  font-size: var(--fs-xs);
+}
+
+.project-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.project-form__cancel,
+.project-form__submit {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.project-form__cancel {
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.project-form__submit {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.project-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
