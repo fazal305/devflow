@@ -1,0 +1,6 @@
+.not-found__link {
+  display: inline-block;
+  color: var(--accent);
+  font-size: var(--fs-sm);
+  text-decoration: underline;
+}

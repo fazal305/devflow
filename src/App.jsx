@@ -21,6 +21,7 @@ import Activity from './pages/Activity'
 import StorageInspector from './pages/StorageInspector'
 import Performance from './pages/Performance'
 import Settings from './pages/Settings'
+import NotFound from './pages/NotFound'
 
 function AppContent({ searchOpen, onOpenSearch, onCloseSearch }) {
   const { status, activateUpdate } = useServiceWorkerStatus()
@@ -43,6 +44,7 @@ function AppContent({ searchOpen, onOpenSearch, onCloseSearch }) {
             <Route path="/storage" element={<StorageInspector />} />
             <Route path="/performance" element={<Performance />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </ErrorBoundary>
       </AppShell>
