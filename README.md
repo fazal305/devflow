@@ -4,6 +4,10 @@ DevFlow is a browser-based developer workspace: projects, Markdown notes, a Kanb
 
 It's built to demonstrate a specific idea: **React manages UI state, IndexedDB is the durable source of truth, Web Workers absorb the CPU-heavy work, and a Service Worker turns the whole thing into an installable, offline-capable app.** Every one of those pieces is real — no mocked workers, no fabricated performance numbers, no fake "active" badges.
 
+## Live Demo
+
+**[devflow-fz17.vercel.app](https://devflow-fz17.vercel.app)**
+
 ## Why this exists
 
 Most portfolio CRUD apps prove you can call a REST API and render a list. DevFlow proves something else: that you can design a coherent local-first system where the browser *is* the platform — durable storage, background computation, offline resilience, and installability, all engineered deliberately rather than bolted on.
