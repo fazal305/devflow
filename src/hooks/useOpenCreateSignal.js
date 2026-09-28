@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 /**
  * Lets the command palette trigger a page's "create" flow via
@@ -8,14 +8,14 @@ import { useLocation, useNavigate } from 'react-router-dom'
  * reopen the form.
  */
 export function useOpenCreateSignal(onOpen) {
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.state?.openCreate) {
-      onOpen()
-      navigate(location.pathname + location.search, { replace: true })
+      onOpen();
+      navigate(location.pathname + location.search, { replace: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.state])
+  }, [location.state]);
 }

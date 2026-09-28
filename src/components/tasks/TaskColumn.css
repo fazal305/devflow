@@ -9,7 +9,9 @@
   border-radius: var(--radius-lg);
   padding: var(--space-3);
   gap: var(--space-2);
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
 }
 
 .task-column--drag-over {

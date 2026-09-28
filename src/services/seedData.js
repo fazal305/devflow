@@ -1,14 +1,14 @@
-import * as projectsStore from '../db/projectsStore'
-import * as notesStore from '../db/notesStore'
-import * as tasksStore from '../db/tasksStore'
-import * as snippetsStore from '../db/snippetsStore'
-import { logActivity } from '../db/activityStore'
-import { countProjects } from '../db/projectsStore'
-import { countNotes } from '../db/notesStore'
-import { countTasks } from '../db/tasksStore'
-import { countSnippets } from '../db/snippetsStore'
+import * as projectsStore from "../db/projectsStore";
+import * as notesStore from "../db/notesStore";
+import * as tasksStore from "../db/tasksStore";
+import * as snippetsStore from "../db/snippetsStore";
+import { logActivity } from "../db/activityStore";
+import { countProjects } from "../db/projectsStore";
+import { countNotes } from "../db/notesStore";
+import { countTasks } from "../db/tasksStore";
+import { countSnippets } from "../db/snippetsStore";
 
-const SEEDED_FLAG = 'devflow:seeded'
+const SEEDED_FLAG = "devflow:seeded";
 
 async function isWorkspaceEmpty() {
   const [projects, notes, tasks, snippets] = await Promise.all([
@@ -16,8 +16,8 @@ async function isWorkspaceEmpty() {
     countNotes(),
     countTasks(),
     countSnippets(),
-  ])
-  return projects === 0 && notes === 0 && tasks === 0 && snippets === 0
+  ]);
+  return projects === 0 && notes === 0 && tasks === 0 && snippets === 0;
 }
 
 /**
@@ -27,30 +27,32 @@ async function isWorkspaceEmpty() {
  * empty — deleting everything afterward never triggers a re-seed.
  */
 export async function seedDemoDataIfEmpty() {
-  if (localStorage.getItem(SEEDED_FLAG)) return
+  if (localStorage.getItem(SEEDED_FLAG)) return;
   if (!(await isWorkspaceEmpty())) {
-    localStorage.setItem(SEEDED_FLAG, '1')
-    return
+    localStorage.setItem(SEEDED_FLAG, "1");
+    return;
   }
 
   const roadmapProject = await projectsStore.createProject({
-    name: 'DevFlow Roadmap',
-    description: 'Planning and notes for DevFlow itself — a local-first developer workspace.',
-    tags: ['meta', 'product'],
-    status: 'active',
-  })
+    name: "DevFlow Roadmap",
+    description:
+      "Planning and notes for DevFlow itself — a local-first developer workspace.",
+    tags: ["meta", "product"],
+    status: "active",
+  });
 
   const portfolioProject = await projectsStore.createProject({
-    name: 'Portfolio Website',
-    description: 'Personal site redesign — case studies, dark mode, faster builds.',
-    tags: ['react', 'personal'],
-    status: 'active',
-  })
+    name: "Portfolio Website",
+    description:
+      "Personal site redesign — case studies, dark mode, faster builds.",
+    tags: ["react", "personal"],
+    status: "active",
+  });
 
   await notesStore.createNote({
-    title: 'Welcome to DevFlow',
+    title: "Welcome to DevFlow",
     projectId: roadmapProject.id,
-    tags: ['welcome'],
+    tags: ["welcome"],
     content: `# Welcome to DevFlow
 
 This is a **local-first developer workspace** — everything you see is stored in your browser's IndexedDB. Nothing is sent to a server.
@@ -70,12 +72,12 @@ This is a **local-first developer workspace** — everything you see is stored i
 - Go offline (disconnect your network) and keep working — nothing breaks
 
 This is sample data, seeded once for your first visit. Feel free to delete it — it won't come back.`,
-  })
+  });
 
   await notesStore.createNote({
-    title: 'Architecture notes',
+    title: "Architecture notes",
     projectId: roadmapProject.id,
-    tags: ['architecture'],
+    tags: ["architecture"],
     content: `# Architecture
 
 - **React** manages UI state via Context + \`useReducer\`
@@ -89,12 +91,12 @@ User action → optimistic UI update → IndexedDB write → activity log
 \`\`\`
 
 No backend. No accounts. No API keys.`,
-  })
+  });
 
   await notesStore.createNote({
-    title: 'Redesign ideas',
+    title: "Redesign ideas",
     projectId: portfolioProject.id,
-    tags: ['design'],
+    tags: ["design"],
     content: `# Redesign ideas
 
 - [ ] Dark mode that actually matches system preference
@@ -103,68 +105,71 @@ No backend. No accounts. No API keys.`,
 - [ ] Swap the contact form for a simple mailto link
 
 > Keep it simple. The best portfolio sites load in under a second.`,
-  })
+  });
 
   await tasksStore.createTask({
-    title: 'Design the Kanban board layout',
-    description: 'Five columns, drag and drop, keyboard-accessible fallback.',
-    status: 'done',
-    priority: 'high',
-    labels: ['ui'],
+    title: "Design the Kanban board layout",
+    description: "Five columns, drag and drop, keyboard-accessible fallback.",
+    status: "done",
+    priority: "high",
+    labels: ["ui"],
     projectId: roadmapProject.id,
-  })
+  });
 
   await tasksStore.createTask({
-    title: 'Wire up the Search Worker',
-    description: 'Inverted index over projects/notes/tasks/snippets, debounced re-indexing.',
-    status: 'done',
-    priority: 'medium',
-    labels: ['performance'],
+    title: "Wire up the Search Worker",
+    description:
+      "Inverted index over projects/notes/tasks/snippets, debounced re-indexing.",
+    status: "done",
+    priority: "medium",
+    labels: ["performance"],
     projectId: roadmapProject.id,
-  })
+  });
 
   await tasksStore.createTask({
-    title: 'Add local AI summarization',
-    description: 'Transformers.js running in a dedicated worker, no cloud calls.',
-    status: 'in-progress',
-    priority: 'medium',
-    labels: ['ai'],
+    title: "Add local AI summarization",
+    description:
+      "Transformers.js running in a dedicated worker, no cloud calls.",
+    status: "in-progress",
+    priority: "medium",
+    labels: ["ai"],
     projectId: roadmapProject.id,
-  })
+  });
 
   await tasksStore.createTask({
-    title: 'Write case study for DevFlow',
-    description: 'Architecture diagram, lessons learned, before/after.',
-    status: 'todo',
-    priority: 'medium',
-    labels: ['writing'],
+    title: "Write case study for DevFlow",
+    description: "Architecture diagram, lessons learned, before/after.",
+    status: "todo",
+    priority: "medium",
+    labels: ["writing"],
     projectId: portfolioProject.id,
-  })
+  });
 
   await tasksStore.createTask({
-    title: 'Audit unused npm dependencies',
-    description: '',
-    status: 'backlog',
-    priority: 'low',
-    labels: ['cleanup'],
+    title: "Audit unused npm dependencies",
+    description: "",
+    status: "backlog",
+    priority: "low",
+    labels: ["cleanup"],
     projectId: portfolioProject.id,
-  })
+  });
 
   await tasksStore.createTask({
-    title: 'Get feedback on the new nav',
-    description: 'Ask three people to find the projects page without hints.',
-    status: 'review',
-    priority: 'low',
-    labels: ['ux'],
+    title: "Get feedback on the new nav",
+    description: "Ask three people to find the projects page without hints.",
+    status: "review",
+    priority: "low",
+    labels: ["ux"],
     projectId: null,
-  })
+  });
 
   await snippetsStore.createSnippet({
-    title: 'IndexedDB store factory',
-    language: 'javascript',
-    description: 'Shared CRUD wrapper so components never touch raw transactions.',
+    title: "IndexedDB store factory",
+    language: "javascript",
+    description:
+      "Shared CRUD wrapper so components never touch raw transactions.",
     projectId: roadmapProject.id,
-    tags: ['indexeddb', 'utility'],
+    tags: ["indexeddb", "utility"],
     code: `export function createStore(storeName) {
   async function withStore(mode, fn) {
     const db = await getDB()
@@ -180,14 +185,14 @@ No backend. No accounts. No API keys.`,
     remove: (id) => withStore('readwrite', (s) => s.delete(id)),
   }
 }`,
-  })
+  });
 
   await snippetsStore.createSnippet({
-    title: 'Debounced autosave hook',
-    language: 'javascript',
-    description: 'Skips saving unchanged values, flushes on unmount.',
+    title: "Debounced autosave hook",
+    language: "javascript",
+    description: "Skips saving unchanged values, flushes on unmount.",
     projectId: null,
-    tags: ['react', 'hooks'],
+    tags: ["react", "hooks"],
     code: `function useAutosave(value, save, { delay = 800 } = {}) {
   const [status, setStatus] = useState('idle')
   const timeoutRef = useRef(null)
@@ -204,14 +209,15 @@ No backend. No accounts. No API keys.`,
 
   return status
 }`,
-  })
+  });
 
   await snippetsStore.createSnippet({
-    title: 'Contrast ratio check',
-    language: 'javascript',
-    description: 'WCAG relative luminance + contrast ratio, used to audit theme tokens.',
+    title: "Contrast ratio check",
+    language: "javascript",
+    description:
+      "WCAG relative luminance + contrast ratio, used to audit theme tokens.",
     projectId: portfolioProject.id,
-    tags: ['accessibility'],
+    tags: ["accessibility"],
     code: `function contrast(hex1, hex2) {
   const lum = (hex) => {
     const [r, g, b] = hex.match(/\\w\\w/g)
@@ -222,14 +228,14 @@ No backend. No accounts. No API keys.`,
   const [a, b] = [lum(hex1), lum(hex2)].sort((x, y) => y - x)
   return (a + 0.05) / (b + 0.05)
 }`,
-  })
+  });
 
   await logActivity({
-    action: 'Loaded sample workspace',
-    entityType: 'workspace',
+    action: "Loaded sample workspace",
+    entityType: "workspace",
     entityId: null,
     metadata: { projects: 2, notes: 3, tasks: 6, snippets: 3 },
-  })
+  });
 
-  localStorage.setItem(SEEDED_FLAG, '1')
+  localStorage.setItem(SEEDED_FLAG, "1");
 }

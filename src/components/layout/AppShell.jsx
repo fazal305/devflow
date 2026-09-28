@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { Header } from './Header'
-import { Sidebar } from './Sidebar'
-import './AppShell.css'
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Header } from "./Header";
+import { Sidebar } from "./Sidebar";
+import "./AppShell.css";
 
 export function AppShell({ children, onOpenCommandPalette }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const location = useLocation()
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    setSidebarOpen(false)
-  }, [location.pathname])
+    setSidebarOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
-    if (!sidebarOpen) return undefined
+    if (!sidebarOpen) return undefined;
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') setSidebarOpen(false)
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [sidebarOpen])
+      if (event.key === "Escape") setSidebarOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [sidebarOpen]);
 
   return (
     <div className="app-shell">
@@ -37,5 +37,5 @@ export function AppShell({ children, onOpenCommandPalette }) {
         </main>
       </div>
     </div>
-  )
+  );
 }

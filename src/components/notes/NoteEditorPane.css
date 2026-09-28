@@ -123,11 +123,11 @@
     display: flex;
   }
 
-  .note-editor__panes[data-view='write'] .note-editor__pane--preview {
+  .note-editor__panes[data-view="write"] .note-editor__pane--preview {
     display: none;
   }
 
-  .note-editor__panes[data-view='preview'] .note-editor__pane--write {
+  .note-editor__panes[data-view="preview"] .note-editor__pane--write {
     display: none;
   }
 }

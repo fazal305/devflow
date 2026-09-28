@@ -1,24 +1,31 @@
-import { PageHeader } from '../components/common/PageHeader'
-import { useTheme } from '../context/ThemeContext'
-import { Icon } from '../components/common/Icon'
-import { DbDiagnostics } from '../components/storage/DbDiagnostics'
-import { ImportExportPanel } from '../components/settings/ImportExportPanel'
-import { useInstallPrompt } from '../hooks/useInstallPrompt'
-import './Settings.css'
+import { PageHeader } from "../components/common/PageHeader";
+import { useTheme } from "../context/ThemeContext";
+import { Icon } from "../components/common/Icon";
+import { DbDiagnostics } from "../components/storage/DbDiagnostics";
+import { ImportExportPanel } from "../components/settings/ImportExportPanel";
+import { useInstallPrompt } from "../hooks/useInstallPrompt";
+import "./Settings.css";
 
 const THEME_OPTIONS = [
-  { value: 'dark', label: 'Dark', icon: 'moon' },
-  { value: 'light', label: 'Light', icon: 'sun' },
-  { value: 'system', label: 'System', icon: 'monitor' },
-]
+  { value: "dark", label: "Dark", icon: "moon" },
+  { value: "light", label: "Light", icon: "sun" },
+  { value: "system", label: "System", icon: "monitor" },
+];
 
 export default function Settings() {
-  const { mode, setMode } = useTheme()
-  const { available: installAvailable, installed, install } = useInstallPrompt()
+  const { mode, setMode } = useTheme();
+  const {
+    available: installAvailable,
+    installed,
+    install,
+  } = useInstallPrompt();
 
   return (
     <>
-      <PageHeader title="Settings" description="Workspace preferences, stored locally on this device." />
+      <PageHeader
+        title="Settings"
+        description="Workspace preferences, stored locally on this device."
+      />
 
       <section className="settings-section">
         <h2 className="settings-section__title">App</h2>
@@ -35,8 +42,8 @@ export default function Settings() {
             </button>
           ) : (
             <p className="settings-install__status settings-install__status--muted">
-              Install isn't available right now — your browser may not support it, or DevFlow may already be
-              installed.
+              Install isn't available right now — your browser may not support
+              it, or DevFlow may already be installed.
             </p>
           )}
         </div>
@@ -50,7 +57,7 @@ export default function Settings() {
               key={option.value}
               role="radio"
               aria-checked={mode === option.value}
-              className={`theme-picker__option${mode === option.value ? ' theme-picker__option--active' : ''}`}
+              className={`theme-picker__option${mode === option.value ? " theme-picker__option--active" : ""}`}
               onClick={() => setMode(option.value)}
             >
               <Icon name={option.icon} size={18} />
@@ -70,5 +77,5 @@ export default function Settings() {
         <ImportExportPanel />
       </section>
     </>
-  )
+  );
 }

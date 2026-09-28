@@ -1,13 +1,13 @@
-import { Icon } from '../common/Icon'
-import { useTheme } from '../../context/ThemeContext'
-import { useNetwork } from '../../context/NetworkContext'
-import './Header.css'
+import { Icon } from "../common/Icon";
+import { useTheme } from "../../context/ThemeContext";
+import { useNetwork } from "../../context/NetworkContext";
+import "./Header.css";
 
-const THEME_ICON = { dark: 'moon', light: 'sun', system: 'monitor' }
+const THEME_ICON = { dark: "moon", light: "sun", system: "monitor" };
 
 export function Header({ onToggleSidebar, onOpenCommandPalette }) {
-  const { mode, cycleMode } = useTheme()
-  const { isOnline } = useNetwork()
+  const { mode, cycleMode } = useTheme();
+  const { isOnline } = useNetwork();
 
   return (
     <header className="app-header">
@@ -39,11 +39,13 @@ export function Header({ onToggleSidebar, onOpenCommandPalette }) {
 
       <div className="app-header__status">
         <span
-          className={`network-badge${isOnline ? '' : ' network-badge--offline'}`}
-          title={isOnline ? 'Online' : 'Offline'}
+          className={`network-badge${isOnline ? "" : " network-badge--offline"}`}
+          title={isOnline ? "Online" : "Offline"}
         >
-          <Icon name={isOnline ? 'online' : 'offline'} size={16} />
-          <span className="network-badge__label">{isOnline ? 'Online' : 'Offline'}</span>
+          <Icon name={isOnline ? "online" : "offline"} size={16} />
+          <span className="network-badge__label">
+            {isOnline ? "Online" : "Offline"}
+          </span>
         </span>
 
         <button
@@ -56,5 +58,5 @@ export function Header({ onToggleSidebar, onOpenCommandPalette }) {
         </button>
       </div>
     </header>
-  )
+  );
 }

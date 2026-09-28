@@ -1,12 +1,21 @@
-import { useState } from 'react'
-import { TaskColumn } from './TaskColumn'
-import { TASK_STATUSES } from '../../config/taskOptions'
-import './TaskBoard.css'
+import { useState } from "react";
+import { TaskColumn } from "./TaskColumn";
+import { TASK_STATUSES } from "../../config/taskOptions";
+import "./TaskBoard.css";
 
-export function TaskBoard({ tasks, projectsById, onCreate, onEdit, onDelete, onMoveTo, onMove }) {
-  const [draggingId, setDraggingId] = useState(null)
+export function TaskBoard({
+  tasks,
+  projectsById,
+  onCreate,
+  onEdit,
+  onDelete,
+  onMoveTo,
+  onMove,
+}) {
+  const [draggingId, setDraggingId] = useState(null);
 
-  const byStatus = (status) => tasks.filter((t) => t.status === status).sort((a, b) => a.order - b.order)
+  const byStatus = (status) =>
+    tasks.filter((t) => t.status === status).sort((a, b) => a.order - b.order);
 
   return (
     <div className="task-board">
@@ -24,11 +33,11 @@ export function TaskBoard({ tasks, projectsById, onCreate, onEdit, onDelete, onM
           onDelete={onDelete}
           onMoveTo={onMoveTo}
           onDrop={(draggedId, status, beforeId) => {
-            onMove(draggedId, status, beforeId)
-            setDraggingId(null)
+            onMove(draggedId, status, beforeId);
+            setDraggingId(null);
           }}
         />
       ))}
     </div>
-  )
+  );
 }

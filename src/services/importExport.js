@@ -1,14 +1,14 @@
-import { createStore, STORES } from '../db/database'
-import { TASK_STATUSES } from '../config/taskOptions'
-import { generateId } from '../utils/id'
-import { saveTextFile } from './fileSystem'
+import { createStore, STORES } from "../db/database";
+import { TASK_STATUSES } from "../config/taskOptions";
+import { generateId } from "../utils/id";
+import { saveTextFile } from "./fileSystem";
 
-export const EXPORT_VERSION = 1
+export const EXPORT_VERSION = 1;
 
-const ENTITY_KEYS = ['projects', 'notes', 'tasks', 'snippets', 'activity']
+const ENTITY_KEYS = ["projects", "notes", "tasks", "snippets", "activity"];
 
 async function getAllFrom(storeName) {
-  return createStore(storeName).getAll()
+  return createStore(storeName).getAll();
 }
 
 /** Gathers the entire workspace into one JSON-serializable object. */
@@ -19,7 +19,7 @@ export async function buildWorkspaceExport() {
     getAllFrom(STORES.tasks),
     getAllFrom(STORES.snippets),
     getAllFrom(STORES.activity),
-  ])
+  ]);
 
   return {
     version: EXPORT_VERSION,
@@ -29,20 +29,22 @@ export async function buildWorkspaceExport() {
     tasks,
     snippets,
     activity,
-  }
+  };
 }
 
 /** Triggers a browser download of the given data as a named JSON file. */
 export function downloadJSON(data, filename) {
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = filename
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json",
+  });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
 
 /**
@@ -51,23 +53,23 @@ export function downloadJSON(data, filename) {
  * plain browser download when the API is unsupported, denied, or cancelled.
  */
 export async function exportWorkspace() {
-  const data = await buildWorkspaceExport()
-  const stamp = data.exportedAt.slice(0, 10)
-  const filename = `devflow-workspace-${stamp}.json`
-  const content = JSON.stringify(data, null, 2)
+  const data = await buildWorkspaceExport();
+  const stamp = data.exportedAt.slice(0, 10);
+  const filename = `devflow-workspace-${stamp}.json`;
+  const content = JSON.stringify(data, null, 2);
 
   const outcome = await saveTextFile(content, {
     suggestedName: filename,
-    mimeType: 'application/json',
-    extension: '.json',
+    mimeType: "application/json",
+    extension: ".json",
     fallback: () => downloadJSON(data, filename),
-  })
+  });
 
-  return { data, outcome }
+  return { data, outcome };
 }
 
-const isNonEmptyString = (v) => typeof v === 'string' && v.trim() !== ''
-const isString = (v) => typeof v === 'string'
+const isNonEmptyString = (v) => typeof v === "string" && v.trim() !== "";
+const isString = (v) => typeof v === "string";
 
 const ITEM_VALIDATORS = {
   projects: (item) => isNonEmptyString(item.id) && isNonEmptyString(item.name),
@@ -77,73 +79,95 @@ const ITEM_VALIDATORS = {
     isNonEmptyString(item.title) &&
     TASK_STATUSES.some((s) => s.value === item.status),
   snippets: (item) => isNonEmptyString(item.id) && isNonEmptyString(item.title),
-  activity: (item) => isNonEmptyString(item.id) && isNonEmptyString(item.action),
-}
+  activity: (item) =>
+    isNonEmptyString(item.id) && isNonEmptyString(item.action),
+};
 
 /**
  * Validates a parsed import file. Never throws — always returns a report so
  * the UI can show a preview or a clear error instead of a stack trace.
  */
 export function validateWorkspaceImport(data) {
-  const errors = []
+  const errors = [];
 
-  if (typeof data !== 'object' || data === null || Array.isArray(data)) {
-    return { valid: false, errors: ['File is not a valid workspace export (expected a JSON object).'], counts: null, cleaned: null }
+  if (typeof data !== "object" || data === null || Array.isArray(data)) {
+    return {
+      valid: false,
+      errors: [
+        "File is not a valid workspace export (expected a JSON object).",
+      ],
+      counts: null,
+      cleaned: null,
+    };
   }
 
-  const cleaned = {}
-  const counts = {}
-  let totalValid = 0
+  const cleaned = {};
+  const counts = {};
+  let totalValid = 0;
 
   for (const key of ENTITY_KEYS) {
-    const raw = data[key]
+    const raw = data[key];
     if (raw === undefined) {
-      cleaned[key] = []
-      counts[key] = { valid: 0, invalid: 0 }
-      continue
+      cleaned[key] = [];
+      counts[key] = { valid: 0, invalid: 0 };
+      continue;
     }
     if (!Array.isArray(raw)) {
-      errors.push(`"${key}" should be a list but wasn't — that section will be skipped.`)
-      cleaned[key] = []
-      counts[key] = { valid: 0, invalid: 0 }
-      continue
+      errors.push(
+        `"${key}" should be a list but wasn't — that section will be skipped.`,
+      );
+      cleaned[key] = [];
+      counts[key] = { valid: 0, invalid: 0 };
+      continue;
     }
 
-    const validator = ITEM_VALIDATORS[key]
-    const validItems = []
-    let invalid = 0
+    const validator = ITEM_VALIDATORS[key];
+    const validItems = [];
+    let invalid = 0;
     for (const item of raw) {
-      if (item && typeof item === 'object' && validator(item)) {
-        validItems.push(item)
+      if (item && typeof item === "object" && validator(item)) {
+        validItems.push(item);
       } else {
-        invalid += 1
+        invalid += 1;
       }
     }
-    cleaned[key] = validItems
-    counts[key] = { valid: validItems.length, invalid }
-    totalValid += validItems.length
+    cleaned[key] = validItems;
+    counts[key] = { valid: validItems.length, invalid };
+    totalValid += validItems.length;
     if (invalid > 0) {
-      errors.push(`${invalid} ${key} record${invalid === 1 ? '' : 's'} skipped (missing required fields).`)
+      errors.push(
+        `${invalid} ${key} record${invalid === 1 ? "" : "s"} skipped (missing required fields).`,
+      );
     }
   }
 
   if (totalValid === 0) {
-    return { valid: false, errors: [...errors, 'No importable records found in this file.'], counts, cleaned: null }
+    return {
+      valid: false,
+      errors: [...errors, "No importable records found in this file."],
+      counts,
+      cleaned: null,
+    };
   }
 
-  return { valid: true, errors, counts, cleaned }
+  return { valid: true, errors, counts, cleaned };
 }
 
 /** Parses and validates a File without writing anything — safe to call before showing a preview. */
 export async function readWorkspaceFile(file) {
-  const text = await file.text()
-  let data
+  const text = await file.text();
+  let data;
   try {
-    data = JSON.parse(text)
+    data = JSON.parse(text);
   } catch {
-    return { valid: false, errors: ['This file is not valid JSON.'], counts: null, cleaned: null }
+    return {
+      valid: false,
+      errors: ["This file is not valid JSON."],
+      counts: null,
+      cleaned: null,
+    };
   }
-  return validateWorkspaceImport(data)
+  return validateWorkspaceImport(data);
 }
 
 const STORE_BY_KEY = {
@@ -152,7 +176,7 @@ const STORE_BY_KEY = {
   tasks: STORES.tasks,
   snippets: STORES.snippets,
   activity: STORES.activity,
-}
+};
 
 /**
  * Writes validated records into IndexedDB. Existing records with matching
@@ -161,16 +185,16 @@ const STORE_BY_KEY = {
  */
 export async function importWorkspace(cleaned) {
   for (const key of ENTITY_KEYS) {
-    const records = cleaned[key]
+    const records = cleaned[key];
     if (records.length > 0) {
-      await createStore(STORE_BY_KEY[key]).bulkPut(records)
+      await createStore(STORE_BY_KEY[key]).bulkPut(records);
     }
   }
 
   await createStore(STORES.activity).put({
     id: generateId(),
-    action: 'Imported workspace',
-    entityType: 'workspace',
+    action: "Imported workspace",
+    entityType: "workspace",
     entityId: null,
     metadata: {
       projects: cleaned.projects.length,
@@ -179,5 +203,5 @@ export async function importWorkspace(cleaned) {
       snippets: cleaned.snippets.length,
     },
     timestamp: new Date().toISOString(),
-  })
+  });
 }

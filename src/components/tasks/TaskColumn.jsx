@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { TaskCard } from './TaskCard'
-import { Icon } from '../common/Icon'
-import './TaskColumn.css'
+import { useState } from "react";
+import { TaskCard } from "./TaskCard";
+import { Icon } from "../common/Icon";
+import "./TaskColumn.css";
 
 export function TaskColumn({
   statusMeta,
@@ -16,21 +16,21 @@ export function TaskColumn({
   onDragStart,
   onDragEnd,
 }) {
-  const [dragOver, setDragOver] = useState(false)
+  const [dragOver, setDragOver] = useState(false);
 
   return (
     <div
-      className={`task-column${dragOver ? ' task-column--drag-over' : ''}`}
+      className={`task-column${dragOver ? " task-column--drag-over" : ""}`}
       onDragOver={(e) => {
-        e.preventDefault()
-        setDragOver(true)
+        e.preventDefault();
+        setDragOver(true);
       }}
       onDragLeave={() => setDragOver(false)}
       onDrop={(e) => {
-        e.preventDefault()
-        setDragOver(false)
-        const draggedId = e.dataTransfer.getData('text/plain')
-        if (draggedId) onDrop(draggedId, statusMeta.value, null)
+        e.preventDefault();
+        setDragOver(false);
+        const draggedId = e.dataTransfer.getData("text/plain");
+        if (draggedId) onDrop(draggedId, statusMeta.value, null);
       }}
     >
       <div className="task-column__header">
@@ -50,15 +50,20 @@ export function TaskColumn({
             onMoveTo={onMoveTo}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            onDropBefore={(draggedId, beforeId) => onDrop(draggedId, statusMeta.value, beforeId)}
+            onDropBefore={(draggedId, beforeId) =>
+              onDrop(draggedId, statusMeta.value, beforeId)
+            }
           />
         ))}
       </div>
 
-      <button className="task-column__add" onClick={() => onCreate(statusMeta.value)}>
+      <button
+        className="task-column__add"
+        onClick={() => onCreate(statusMeta.value)}
+      >
         <Icon name="plus" size={14} />
         Add task
       </button>
     </div>
-  )
+  );
 }

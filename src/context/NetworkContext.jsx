@@ -1,15 +1,19 @@
-import { createContext, useContext } from 'react'
-import { useOnlineStatus } from '../hooks/useOnlineStatus'
+import { createContext, useContext } from "react";
+import { useOnlineStatus } from "../hooks/useOnlineStatus";
 
-const NetworkContext = createContext(null)
+const NetworkContext = createContext(null);
 
 export function NetworkProvider({ children }) {
-  const isOnline = useOnlineStatus()
-  return <NetworkContext.Provider value={{ isOnline }}>{children}</NetworkContext.Provider>
+  const isOnline = useOnlineStatus();
+  return (
+    <NetworkContext.Provider value={{ isOnline }}>
+      {children}
+    </NetworkContext.Provider>
+  );
 }
 
 export function useNetwork() {
-  const ctx = useContext(NetworkContext)
-  if (!ctx) throw new Error('useNetwork must be used within NetworkProvider')
-  return ctx
+  const ctx = useContext(NetworkContext);
+  if (!ctx) throw new Error("useNetwork must be used within NetworkProvider");
+  return ctx;
 }

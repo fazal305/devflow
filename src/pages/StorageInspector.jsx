@@ -1,11 +1,11 @@
-import { PageHeader } from '../components/common/PageHeader'
-import { StorageOverview } from '../components/storage/StorageOverview'
-import { StoreBrowser } from '../components/storage/StoreBrowser'
-import { useWorkspace } from '../context/WorkspaceContext'
-import './StorageInspector.css'
+import { PageHeader } from "../components/common/PageHeader";
+import { StorageOverview } from "../components/storage/StorageOverview";
+import { StoreBrowser } from "../components/storage/StoreBrowser";
+import { useWorkspace } from "../context/WorkspaceContext";
+import "./StorageInspector.css";
 
 export default function StorageInspector() {
-  const { state } = useWorkspace()
+  const { state } = useWorkspace();
 
   return (
     <>
@@ -26,7 +26,7 @@ export default function StorageInspector() {
           <StoreBrowser
             name="Notes"
             items={state.notes.items}
-            getLabel={(n) => n.title || 'Untitled note'}
+            getLabel={(n) => n.title || "Untitled note"}
           />
           <StoreBrowser
             name="Tasks"
@@ -47,5 +47,5 @@ export default function StorageInspector() {
         </div>
       </div>
     </>
-  )
+  );
 }

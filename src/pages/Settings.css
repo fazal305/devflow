@@ -51,7 +51,9 @@
   color: var(--text-secondary);
   font-size: var(--fs-sm);
   background: var(--surface);
-  transition: border-color var(--transition-fast), color var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .theme-picker__option:hover {

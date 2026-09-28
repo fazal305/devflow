@@ -6,9 +6,11 @@
 
 :root {
   /* Typography — system stacks only (no network fonts: offline-first) */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, sans-serif;
-  --font-mono: ui-monospace, "Cascadia Code", "Segoe UI Mono", "SFMono-Regular", Menlo,
+  --font-mono:
+    ui-monospace, "Cascadia Code", "Segoe UI Mono", "SFMono-Regular", Menlo,
     Consolas, "Liberation Mono", monospace;
 
   --fs-xs: 0.75rem;

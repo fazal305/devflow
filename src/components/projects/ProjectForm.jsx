@@ -1,44 +1,44 @@
-import { useId, useState } from 'react'
-import { Modal } from '../common/Modal'
-import { PROJECT_STATUSES } from '../../config/projectOptions'
-import { validateProject, parseTagsInput } from '../../utils/validation'
-import './ProjectForm.css'
+import { useId, useState } from "react";
+import { Modal } from "../common/Modal";
+import { PROJECT_STATUSES } from "../../config/projectOptions";
+import { validateProject, parseTagsInput } from "../../utils/validation";
+import "./ProjectForm.css";
 
 export function ProjectForm({ open, onClose, onSubmit, initialValue, title }) {
-  const titleId = useId()
+  const titleId = useId();
   const [values, setValues] = useState(() => ({
-    name: initialValue?.name ?? '',
-    description: initialValue?.description ?? '',
-    status: initialValue?.status ?? 'active',
-    tags: initialValue?.tags?.join(', ') ?? '',
-  }))
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
+    name: initialValue?.name ?? "",
+    description: initialValue?.description ?? "",
+    status: initialValue?.status ?? "active",
+    tags: initialValue?.tags?.join(", ") ?? "",
+  }));
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
-  if (!open) return null
+  if (!open) return null;
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    const validationErrors = validateProject(values)
+    event.preventDefault();
+    const validationErrors = validateProject(values);
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
-      return
+      setErrors(validationErrors);
+      return;
     }
-    setSubmitting(true)
+    setSubmitting(true);
     try {
       await onSubmit({
         name: values.name.trim(),
         description: values.description.trim(),
         status: values.status,
         tags: parseTagsInput(values.tags),
-      })
-      onClose()
+      });
+      onClose();
     } catch (err) {
-      setErrors({ form: err.message })
+      setErrors({ form: err.message });
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <Modal open={open} onClose={onClose} labelledBy={titleId}>
@@ -68,7 +68,9 @@ export function ProjectForm({ open, onClose, onSubmit, initialValue, title }) {
           <textarea
             rows={3}
             value={values.description}
-            onChange={(e) => setValues((v) => ({ ...v, description: e.target.value }))}
+            onChange={(e) =>
+              setValues((v) => ({ ...v, description: e.target.value }))
+            }
           />
         </label>
 
@@ -76,7 +78,9 @@ export function ProjectForm({ open, onClose, onSubmit, initialValue, title }) {
           <span>Status</span>
           <select
             value={values.status}
-            onChange={(e) => setValues((v) => ({ ...v, status: e.target.value }))}
+            onChange={(e) =>
+              setValues((v) => ({ ...v, status: e.target.value }))
+            }
           >
             {PROJECT_STATUSES.map((s) => (
               <option key={s.value} value={s.value}>
@@ -98,14 +102,22 @@ export function ProjectForm({ open, onClose, onSubmit, initialValue, title }) {
         {errors.form && <p className="project-form__error">{errors.form}</p>}
 
         <div className="project-form__actions">
-          <button type="button" className="project-form__cancel" onClick={onClose}>
+          <button
+            type="button"
+            className="project-form__cancel"
+            onClick={onClose}
+          >
             Cancel
           </button>
-          <button type="submit" className="project-form__submit" disabled={submitting}>
-            {submitting ? 'Saving…' : 'Save'}
+          <button
+            type="submit"
+            className="project-form__submit"
+            disabled={submitting}
+          >
+            {submitting ? "Saving…" : "Save"}
           </button>
         </div>
       </form>
     </Modal>
-  )
+  );
 }

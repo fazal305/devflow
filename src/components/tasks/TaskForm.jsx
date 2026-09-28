@@ -1,35 +1,42 @@
-import { useId, useState } from 'react'
-import { Modal } from '../common/Modal'
-import { TASK_STATUSES, TASK_PRIORITIES } from '../../config/taskOptions'
-import { useProjects } from '../../hooks/useProjects'
-import { validateTask, parseTagsInput } from '../../utils/validation'
-import './TaskForm.css'
+import { useId, useState } from "react";
+import { Modal } from "../common/Modal";
+import { TASK_STATUSES, TASK_PRIORITIES } from "../../config/taskOptions";
+import { useProjects } from "../../hooks/useProjects";
+import { validateTask, parseTagsInput } from "../../utils/validation";
+import "./TaskForm.css";
 
-export function TaskForm({ open, onClose, onSubmit, initialValue, title, defaultStatus = 'backlog' }) {
-  const titleId = useId()
-  const { activeProjects } = useProjects()
+export function TaskForm({
+  open,
+  onClose,
+  onSubmit,
+  initialValue,
+  title,
+  defaultStatus = "backlog",
+}) {
+  const titleId = useId();
+  const { activeProjects } = useProjects();
   const [values, setValues] = useState(() => ({
-    title: initialValue?.title ?? '',
-    description: initialValue?.description ?? '',
+    title: initialValue?.title ?? "",
+    description: initialValue?.description ?? "",
     status: initialValue?.status ?? defaultStatus,
-    priority: initialValue?.priority ?? 'medium',
-    projectId: initialValue?.projectId ?? '',
-    dueDate: initialValue?.dueDate ?? '',
-    labels: initialValue?.labels?.join(', ') ?? '',
-  }))
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
+    priority: initialValue?.priority ?? "medium",
+    projectId: initialValue?.projectId ?? "",
+    dueDate: initialValue?.dueDate ?? "",
+    labels: initialValue?.labels?.join(", ") ?? "",
+  }));
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
-  if (!open) return null
+  if (!open) return null;
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    const validationErrors = validateTask(values)
+    event.preventDefault();
+    const validationErrors = validateTask(values);
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
-      return
+      setErrors(validationErrors);
+      return;
     }
-    setSubmitting(true)
+    setSubmitting(true);
     try {
       await onSubmit({
         title: values.title.trim(),
@@ -39,14 +46,14 @@ export function TaskForm({ open, onClose, onSubmit, initialValue, title, default
         projectId: values.projectId || null,
         dueDate: values.dueDate || null,
         labels: parseTagsInput(values.labels),
-      })
-      onClose()
+      });
+      onClose();
     } catch (err) {
-      setErrors({ form: err.message })
+      setErrors({ form: err.message });
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <Modal open={open} onClose={onClose} labelledBy={titleId}>
@@ -60,10 +67,14 @@ export function TaskForm({ open, onClose, onSubmit, initialValue, title, default
           <input
             autoFocus
             value={values.title}
-            onChange={(e) => setValues((v) => ({ ...v, title: e.target.value }))}
+            onChange={(e) =>
+              setValues((v) => ({ ...v, title: e.target.value }))
+            }
             aria-invalid={Boolean(errors.title)}
           />
-          {errors.title && <span className="task-form__error">{errors.title}</span>}
+          {errors.title && (
+            <span className="task-form__error">{errors.title}</span>
+          )}
         </label>
 
         <label className="task-form__field">
@@ -71,14 +82,21 @@ export function TaskForm({ open, onClose, onSubmit, initialValue, title, default
           <textarea
             rows={3}
             value={values.description}
-            onChange={(e) => setValues((v) => ({ ...v, description: e.target.value }))}
+            onChange={(e) =>
+              setValues((v) => ({ ...v, description: e.target.value }))
+            }
           />
         </label>
 
         <div className="task-form__row">
           <label className="task-form__field">
             <span>Status</span>
-            <select value={values.status} onChange={(e) => setValues((v) => ({ ...v, status: e.target.value }))}>
+            <select
+              value={values.status}
+              onChange={(e) =>
+                setValues((v) => ({ ...v, status: e.target.value }))
+              }
+            >
               {TASK_STATUSES.map((s) => (
                 <option key={s.value} value={s.value}>
                   {s.label}
@@ -89,7 +107,12 @@ export function TaskForm({ open, onClose, onSubmit, initialValue, title, default
 
           <label className="task-form__field">
             <span>Priority</span>
-            <select value={values.priority} onChange={(e) => setValues((v) => ({ ...v, priority: e.target.value }))}>
+            <select
+              value={values.priority}
+              onChange={(e) =>
+                setValues((v) => ({ ...v, priority: e.target.value }))
+              }
+            >
               {TASK_PRIORITIES.map((p) => (
                 <option key={p.value} value={p.value}>
                   {p.label}
@@ -104,7 +127,9 @@ export function TaskForm({ open, onClose, onSubmit, initialValue, title, default
             <span>Project</span>
             <select
               value={values.projectId}
-              onChange={(e) => setValues((v) => ({ ...v, projectId: e.target.value }))}
+              onChange={(e) =>
+                setValues((v) => ({ ...v, projectId: e.target.value }))
+              }
             >
               <option value="">No project</option>
               {activeProjects.map((p) => (
@@ -119,8 +144,10 @@ export function TaskForm({ open, onClose, onSubmit, initialValue, title, default
             <span>Due date</span>
             <input
               type="date"
-              value={values.dueDate ?? ''}
-              onChange={(e) => setValues((v) => ({ ...v, dueDate: e.target.value }))}
+              value={values.dueDate ?? ""}
+              onChange={(e) =>
+                setValues((v) => ({ ...v, dueDate: e.target.value }))
+              }
             />
           </label>
         </div>
@@ -129,7 +156,9 @@ export function TaskForm({ open, onClose, onSubmit, initialValue, title, default
           <span>Labels (comma separated)</span>
           <input
             value={values.labels}
-            onChange={(e) => setValues((v) => ({ ...v, labels: e.target.value }))}
+            onChange={(e) =>
+              setValues((v) => ({ ...v, labels: e.target.value }))
+            }
             placeholder="bug, frontend"
           />
         </label>
@@ -140,11 +169,15 @@ export function TaskForm({ open, onClose, onSubmit, initialValue, title, default
           <button type="button" className="task-form__cancel" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="task-form__submit" disabled={submitting}>
-            {submitting ? 'Saving…' : 'Save'}
+          <button
+            type="submit"
+            className="task-form__submit"
+            disabled={submitting}
+          >
+            {submitting ? "Saving…" : "Save"}
           </button>
         </div>
       </form>
     </Modal>
-  )
+  );
 }

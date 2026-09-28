@@ -1,4 +1,4 @@
-import './EmptyState.css'
+import "./EmptyState.css";
 
 export function EmptyState({ icon, title, description, action }) {
   return (
@@ -8,5 +8,5 @@ export function EmptyState({ icon, title, description, action }) {
       {description && <p>{description}</p>}
       {action}
     </div>
-  )
+  );
 }

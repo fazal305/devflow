@@ -1,5 +1,5 @@
-import { Modal } from './Modal'
-import './ConfirmDialog.css'
+import { Modal } from "./Modal";
+import "./ConfirmDialog.css";
 
 /** Reused wherever a destructive action needs confirmation (delete project, note, task, snippet…). */
 export function ConfirmDialog({
@@ -8,11 +8,16 @@ export function ConfirmDialog({
   onConfirm,
   title,
   description,
-  confirmLabel = 'Confirm',
+  confirmLabel = "Confirm",
   danger = true,
 }) {
   return (
-    <Modal open={open} onClose={onClose} labelledBy="confirm-dialog-title" className="confirm-dialog">
+    <Modal
+      open={open}
+      onClose={onClose}
+      labelledBy="confirm-dialog-title"
+      className="confirm-dialog"
+    >
       <h2 id="confirm-dialog-title" className="confirm-dialog__title">
         {title}
       </h2>
@@ -22,15 +27,19 @@ export function ConfirmDialog({
           Cancel
         </button>
         <button
-          className={danger ? 'confirm-dialog__confirm confirm-dialog__confirm--danger' : 'confirm-dialog__confirm'}
+          className={
+            danger
+              ? "confirm-dialog__confirm confirm-dialog__confirm--danger"
+              : "confirm-dialog__confirm"
+          }
           onClick={() => {
-            onConfirm()
-            onClose()
+            onConfirm();
+            onClose();
           }}
         >
           {confirmLabel}
         </button>
       </div>
     </Modal>
-  )
+  );
 }

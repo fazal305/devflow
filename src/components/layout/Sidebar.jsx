@@ -1,18 +1,18 @@
-import { NavLink } from 'react-router-dom'
-import { Icon } from '../common/Icon'
-import { navigationItems } from '../../config/navigation'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
-import './Sidebar.css'
+import { NavLink } from "react-router-dom";
+import { Icon } from "../common/Icon";
+import { navigationItems } from "../../config/navigation";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
+import "./Sidebar.css";
 
 export function Sidebar({ open, onNavigate }) {
-  const isMobile = useMediaQuery('(max-width: 767px)')
-  const offCanvasClosed = isMobile && !open
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const offCanvasClosed = isMobile && !open;
 
   return (
     <>
       <nav
         id="primary-navigation"
-        className={`sidebar${open ? ' sidebar--open' : ''}`}
+        className={`sidebar${open ? " sidebar--open" : ""}`}
         aria-label="Primary"
         inert={offCanvasClosed}
       >
@@ -21,9 +21,9 @@ export function Sidebar({ open, onNavigate }) {
             <li key={item.id}>
               <NavLink
                 to={item.path}
-                end={item.path === '/'}
+                end={item.path === "/"}
                 className={({ isActive }) =>
-                  `sidebar__link${isActive ? ' sidebar__link--active' : ''}`
+                  `sidebar__link${isActive ? " sidebar__link--active" : ""}`
                 }
                 onClick={onNavigate}
               >
@@ -34,7 +34,13 @@ export function Sidebar({ open, onNavigate }) {
           ))}
         </ul>
       </nav>
-      {open && <div className="sidebar__scrim" onClick={onNavigate} aria-hidden="true" />}
+      {open && (
+        <div
+          className="sidebar__scrim"
+          onClick={onNavigate}
+          aria-hidden="true"
+        />
+      )}
     </>
-  )
+  );
 }

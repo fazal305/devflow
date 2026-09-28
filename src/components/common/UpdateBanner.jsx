@@ -1,5 +1,5 @@
-import { Icon } from './Icon'
-import './UpdateBanner.css'
+import { Icon } from "./Icon";
+import "./UpdateBanner.css";
 
 export function UpdateBanner({ onActivate }) {
   return (
@@ -8,5 +8,5 @@ export function UpdateBanner({ onActivate }) {
       <span>A new version of DevFlow is ready.</span>
       <button onClick={onActivate}>Reload to update</button>
     </div>
-  )
+  );
 }
